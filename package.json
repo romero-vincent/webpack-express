@@ -1,0 +1,43 @@
+{
+  "name": "webpack-express",
+  "version": "1.0.0",
+  "description": "A node project to serve as a boilerplate for a webpack project on express",
+  "main": "index.js",
+  "scripts": {
+    "lint:js": "gjslint -r ./src/script",
+    "lint:scss": "scss-lint --config ./config/scss-lint.yml",
+    "package": "webpack --config ./config/webpack.prod.js --progress --color",
+    "package:staging": "webpack --config ./config/webpack.dev.js --progress --color",
+    "start": "node ./bin/www",
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:romero-vincent/webpack-express.git"
+  },
+  "keywords": [
+    "webpack", "express", "boilerplate"
+  ],
+  "author": "Vincent Romero <vincent.v.romero@gmail.com>",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "css-loader": "^0.26.1",
+    "express": "^4.14.0",
+    "express-livereload": "0.0.24",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "jest-cli": "^16.0.1",
+    "node-sass": "^4.1.1",
+    "postcss-loader": "^1.2.1",
+    "precss": "^1.4.0",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-merge": "^0.14.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}

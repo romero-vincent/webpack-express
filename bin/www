@@ -1,0 +1,79 @@
+#!/usr/bin/env node
+(function() {
+
+    var http = require('http');
+    var helper = require('../config/helper');
+    var app = require('../index');
+
+    var config = helper.getConfig();
+    var defaultPort = '3000';
+    var server;
+
+    main();
+
+    function main() {
+        setPort();
+        startServer();
+    }
+
+    function setPort() {
+        var port = normalizePort(config.expressPort || defaultPort);
+        app.set('port', port);
+    }
+
+    function normalizePort(value) {
+        var port = parseInt(value, 10);
+
+        if (isNaN(port)) {
+            return value;
+        }
+
+        if (port >= 0) {
+            return port;
+        }
+
+        return false;
+    }
+
+    function startServer() {
+        server = http.createServer(app);
+        server.listen(app.get('port'));
+        server.on('error', onError);
+        server.on('listening', onListening);
+    }
+
+    function onError(error) {
+        var bind = typeof port === 'string'
+            ? 'Pipe ' + port
+            : 'Port ' + port;
+
+        if (error.syscall !== 'listen') {
+            throw error;
+        }
+
+        // handle specific listen errors with friendly messages
+        switch (error.code) {
+            case 'EACCES':
+                console.error(bind + ' requires elevated privileges');
+                process.exit(1);
+                break;
+
+            case 'EADDRINUSE':
+                console.error(bind + ' is already in use');
+                process.exit(1);
+                break;
+
+            default:
+                throw error;
+        }
+    }
+
+    function onListening() {
+        var address = server.address();
+        var bind = typeof address === 'string'
+            ? 'pipe ' + address
+            : 'port ' + address.port;
+        console.log('Listening on ' + bind);
+    }
+    
+})();
